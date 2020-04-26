@@ -8,6 +8,7 @@ from algorithms import KMP as kmp
 from datetime import datetime
 import matplotlib.pyplot as plt
 import pandas as pd
+from IPython.display import display
 
 def benchmarks(text_path, pattern_path):
   handle_t_1 = open(text_path, 'r')
@@ -70,9 +71,9 @@ def get_report(data_path, testdata_type):
 
   for i in range(4):
     for j in range(4):
-      median_for_table.append(median_good[i][j])
-      std_for_table.append(std_good[i][j])
-      comparisons_for_table.append(comparison_good[i][j])
+      median_for_table.append(median[i][j])
+      std_for_table.append(std[i][j])
+      comparisons_for_table.append(comparison[i][j])
 
   median = np.array(median).T.tolist()
   std = np.array(std).T.tolist()
@@ -89,7 +90,7 @@ def get_report(data_path, testdata_type):
   width = 0.2  
 
   rects1 = ax.bar(x, median[:][0], width, label='Naive string matcher', yerr = std[:][0], color = 'PaleVioletRed')
-  rects2 = ax.bar(x + width, median_good[:][1], width, label='Rabin-Karp',yerr = std[:][1],  color = 'Aquamarine')
+  rects2 = ax.bar(x + width, median[:][1], width, label='Rabin-Karp',yerr = std[:][1],  color = 'Aquamarine')
   rects3 = ax.bar(x + (width * 2), median[:][2], width, label='Boyer-Moore-Horspool', yerr = std[:][2], color = 'LimeGreen')
   rects4 = ax.bar(x + (width * 3), median[:][3], width, label='Knuth–Morris–Pratt', yerr = std[:][3], color = 'MediumBlue')
 
@@ -110,5 +111,4 @@ def get_report(data_path, testdata_type):
   df = pd.DataFrame (data, columns = ['testdata text name','testdata pattern name','algorithm',
                                       'median time', 'std', 'number of comparisons'])
 
-  print(df)
-
+  display(df)
